@@ -1,0 +1,8 @@
+DROP SEQUENCE IF EXISTS role_seq;
+DROP TABLE IF EXISTS roles CASCADE;
+CREATE TABLE roles
+(
+    id BIGINT NOT NULL,
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);

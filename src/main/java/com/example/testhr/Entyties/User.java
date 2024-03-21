@@ -1,11 +1,9 @@
 package com.example.testhr.Entyties;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Collection;
 
 
 @Data
@@ -14,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User {
     private static final String SEQ_NAME = ("user_seq");
     @Id
@@ -25,8 +25,12 @@ public class User {
     private int age;
     private String password;
     private String email;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "roles_users",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
     private String team;
 
 

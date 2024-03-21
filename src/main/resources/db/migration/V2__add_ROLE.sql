@@ -1,0 +1,20 @@
+--ROLES
+DROP TABLE IF EXISTS roles CASCADE;
+CREATE TABLE roles
+(
+    id BIGINT NOT NULL,
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);
+--USER_ROLES
+DROP TABLE IF EXISTS user_roles CASCADE;
+CREATE TABLE user_roles
+(
+    user_id BIGINT NOT NULL UNIQUE,
+    roles_id BIGINT NOT NULL
+);
+
+ALTER TABLE IF EXISTS user_roles ADD CONSTRAINT user_fk_roles
+    FOREIGN KEY (user_id) REFERENCES users;
+ALTER TABLE IF EXISTS user_roles ADD CONSTRAINT roles_fk_users
+    FOREIGN KEY (roles_id) REFERENCES roles;
