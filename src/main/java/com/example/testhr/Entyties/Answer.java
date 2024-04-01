@@ -18,9 +18,12 @@ public class Answer {
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     private String answer;
+    /*@ManyToOne(cascade = CascadeType.ALL)
+    *//*@JoinColumn(name = "question_id")
+    private Question question;*/
+    //private int score;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private Question question;
-    private int score;
+    @JoinColumn(name = "users_id")
+    private User user;
 
 }

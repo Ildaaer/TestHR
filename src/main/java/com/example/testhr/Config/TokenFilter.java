@@ -32,24 +32,24 @@ public class TokenFilter extends OncePerRequestFilter {
         String jwt = null;
         String username = null;
         String headerAuth = request.getHeader("Authorization");
-            if(headerAuth != null && headerAuth.startsWith("Bearer ")){
-                jwt = headerAuth.substring(7);
-                try {
-                    username = jwtCore.getUsername(jwt);
-                } catch (ExpiredJwtException e){
-                    logger.debug("Время жизни токена истекло");
-                } catch (SignatureException e){
-                    logger.debug("Подпись неверна");
-                }
+        if(headerAuth != null && headerAuth.startsWith("Bearer ")){
+            jwt = headerAuth.substring(7);
+            try {
+                username = jwtCore.getUsername(jwt);
+            } catch (ExpiredJwtException e){
+                logger.debug("Время жизни токена истекло");
+            } catch (SignatureException e){
+                logger.debug("Подпись неверна");
             }
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                        username,
-                        null,
-                        jwtCore.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
-                );
-                SecurityContextHolder.getContext().setAuthentication(token);
-            }
-            filterChain.doFilter(request, response);
+        }
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                    username,
+                    null,
+                    jwtCore.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
+            );
+            SecurityContextHolder.getContext().setAuthentication(token);
+        }
+        filterChain.doFilter(request, response);
     }
 }

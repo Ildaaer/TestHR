@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Data
@@ -21,6 +22,7 @@ public class User {
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     private String name;
+    private String username;
     private String lastname;
     private int age;
     private String password;
@@ -32,7 +34,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
     private String team;
-
 
 }
 

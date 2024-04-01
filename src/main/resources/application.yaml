@@ -4,13 +4,11 @@ spring:
       ddl-auto: validate
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/TestHR
+    url: jdbc:postgresql://host.docker.internal:5432/TestHR
     username: postgres
     password: 123
   flyway:
     baseline-on-migrate: true
-  main:
-    allow-circular-references: true
 jwt:
   secret: "kasdjqjkdfqjfkqk21j4r513kjh51t5"
   lifetime: 3600000
